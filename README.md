@@ -20,6 +20,8 @@ Before you begin to warp file from one place to another, you have to host.
 
   ./warpgate.exe host [--port | -p ]
   
+Files sent by the warpgate will be saved to the current working dir.
+  
 Copy
 ----
 So you have launched a warpgate? Ok! It's time pewpewpew:
