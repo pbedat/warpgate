@@ -1,0 +1,23 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "warpgate.cli", "warpgate.cli\warpgate.cli.csproj", "{0EC34A57-E9A3-499C-AA48-4007D2D63AC7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "warpgate", "warpgate\warpgate.csproj", "{DCFCA9A0-6AE9-4D78-8B3A-4E553911DBDA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0EC34A57-E9A3-499C-AA48-4007D2D63AC7}.Debug|x86.ActiveCfg = Debug|x86
+		{0EC34A57-E9A3-499C-AA48-4007D2D63AC7}.Debug|x86.Build.0 = Debug|x86
+		{0EC34A57-E9A3-499C-AA48-4007D2D63AC7}.Release|x86.ActiveCfg = Release|x86
+		{0EC34A57-E9A3-499C-AA48-4007D2D63AC7}.Release|x86.Build.0 = Release|x86
+		{DCFCA9A0-6AE9-4D78-8B3A-4E553911DBDA}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{DCFCA9A0-6AE9-4D78-8B3A-4E553911DBDA}.Debug|x86.Build.0 = Debug|Any CPU
+		{DCFCA9A0-6AE9-4D78-8B3A-4E553911DBDA}.Release|x86.ActiveCfg = Release|Any CPU
+		{DCFCA9A0-6AE9-4D78-8B3A-4E553911DBDA}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
