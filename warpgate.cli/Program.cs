@@ -50,7 +50,7 @@ namespace warpgate.cli
 
 			var transmission = new FileTransmission{ BaseUrl = host, Path = path };
 
-			new SendFile ().Process (transmission);
+			new SendFile ().Process (transmission).ToArray().PrintDump();
 		}
 	}
 }

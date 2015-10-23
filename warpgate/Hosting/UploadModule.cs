@@ -15,6 +15,11 @@ namespace warpgate
 
 				var absolutePath = Path.Combine(Environment.CurrentDirectory, relativePath);
 
+				var directory = Path.GetDirectoryName(absolutePath);
+
+				if(!Directory.Exists(directory))
+					Directory.CreateDirectory(directory);
+
 				using(var file = File.OpenWrite(absolutePath))
 					Request.Body.CopyTo(file);
 
