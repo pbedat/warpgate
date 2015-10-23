@@ -28,4 +28,4 @@ So you have launched a warpgate? Ok! It's time pewpewpew:
 
     ./warpgate.exe cp <url> <path>
   
-when everything went allright you should see the warp location.
+when everything went allright you should see the warp locations.
