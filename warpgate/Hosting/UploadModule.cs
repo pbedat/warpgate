@@ -11,19 +11,12 @@ namespace warpgate
 		{
 			Put ["warpgate/io/{path*}"] = _ => {
 
+
 				var relativePath = (string)_.path;
 
-				var absolutePath = Path.Combine(Environment.CurrentDirectory, relativePath);
+				kernel.Get<IRelayServer>().Relay(relativePath, Request.Body);
 
-				var directory = Path.GetDirectoryName(absolutePath);
-
-				if(!Directory.Exists(directory))
-					Directory.CreateDirectory(directory);
-
-				using(var file = File.OpenWrite(absolutePath))
-					Request.Body.CopyTo(file);
-
-				return absolutePath;
+				return "OK";
 			};
 		}
 	}

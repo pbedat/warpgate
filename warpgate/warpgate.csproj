@@ -40,6 +40,9 @@
     <Reference Include="NServiceKit.Text">
       <HintPath>..\packages\NServiceKit.Text.1.0.10\lib\net35\NServiceKit.Text.dll</HintPath>
     </Reference>
+    <Reference Include="websocket-sharp-with-proxy-support">
+      <HintPath>..\packages\websocket-sharp-with-proxy-support.1.9.1\lib\net35-client\websocket-sharp-with-proxy-support.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
@@ -47,6 +50,10 @@
     <Compile Include="Hosting\UploadModule.cs" />
     <Compile Include="Client\FileTransmission.cs" />
     <Compile Include="Client\SendFile.cs" />
+    <Compile Include="Hosting\RelayService.cs" />
+    <Compile Include="Client\Listener.cs" />
+    <Compile Include="Hosting\RegistrarModule.cs" />
+    <Compile Include="Hosting\RelayServer.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

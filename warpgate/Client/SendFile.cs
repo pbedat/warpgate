@@ -17,7 +17,10 @@ namespace warpgate
 			{
 				foreach (var path in Directory.GetFiles(transmission.Path, "*.*", SearchOption.AllDirectories)) 
 				{
-					yield return Send (new FileTransmission{ BaseUrl = transmission.BaseUrl, Path = path }, transmission.Path);
+					attr = File.GetAttributes (path);
+
+					if(!attr.HasFlag(FileAttributes.Directory))
+						yield return Send (new FileTransmission{ BaseUrl = transmission.BaseUrl, Path = path }, transmission.Path);
 				}
 			} 
 			else

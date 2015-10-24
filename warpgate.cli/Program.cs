@@ -2,6 +2,7 @@
 using System.Linq;
 using Nancy.Hosting.Self;
 using NServiceKit.Text;
+using Ninject;
 
 namespace warpgate.cli
 {
@@ -33,12 +34,29 @@ namespace warpgate.cli
 
 			var port = int.Parse(ports.FirstOrDefault () ?? "8080");
 
-			using (var host = new NancyHost (new Uri ("http://localhost:{0}".Fmt (port)), new WarpgateBootstrapper ())) 
+			var kernel = new StandardKernel ();
+
+			using (var host = new NancyHost (new Uri ("http://localhost:{0}".Fmt (port)), new WarpgateBootstrapper (kernel))) 
 			{
 				Console.WriteLine ("launching warpgate on http://localhost:{0}", port);
 				host.Start ();
-				Console.WriteLine ("press ENTER to quit");
-				Console.ReadLine ();
+
+				using(var relayServer = new RelayServer ())
+				{
+					var uid = relayServer.Register ();
+					relayServer.Start ();
+					kernel.Bind<IRelayServer> ().ToConstant (relayServer);
+
+					using (var listener = new Listener (uid)) 
+					{
+						listener.Listen ();
+
+
+						Console.WriteLine ("press ENTER to quit");
+						Console.ReadLine ();
+					}
+				}
+
 			}
 
 		}
