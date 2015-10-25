@@ -29,3 +29,19 @@ So you have launched a warpgate? Ok! It's time pewpewpew:
     ./warpgate.exe cp <url> <path>
   
 when everything went allright you should see the warp locations.
+
+Relay
+-----
+Ok now sending files from one warpgate to another is easy. But what if a solar storm, wormhole or a firewall is blocking your http port? The solution is easy: Add another warpgate!
+
+Setup a warpgate which relays your files to other warpgates on a machine, where you have open ports:
+
+    ./warpgate.exe relay [--port | -p]
+    
+Setup a warpgate on the target machine and link it to the relay.
+
+    ./warpgate.exe link <url>
+    
+Now use the uid provided by the linking warpgate to send files over the relay:
+
+    ./warpgate.exe cp <url>/<uid> <path>
