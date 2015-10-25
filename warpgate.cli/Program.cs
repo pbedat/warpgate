@@ -22,8 +22,8 @@ namespace warpgate.cli
 			case "cp":
 				Copy (args.Skip (1).ToArray ());
 				return;
-			case "listen":
-				Listen (args.Skip (1).ToArray ());
+			case "link":
+				Link (args.Skip (1).ToArray ());
 				return;
 			case "relay":
 				Relay (args.Skip (1).ToArray ());
@@ -78,7 +78,7 @@ namespace warpgate.cli
 			new SendFile ().Process (transmission).ToArray().PrintDump();
 		}
 
-		static void Listen (string[] args)
+		static void Link (string[] args)
 		{
 			var relay = args [0];
 
