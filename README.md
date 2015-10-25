@@ -45,3 +45,10 @@ Setup a warpgate on the target machine and link it to the relay.
 Now use the uid provided by the linking warpgate to send files over the relay:
 
     ./warpgate.exe cp <url>/<uid> <path>
+
+TODO
+====
+
+- Add CI
+- Add Chocolaty Nuget integration
+- Add apt integration
