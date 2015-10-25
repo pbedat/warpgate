@@ -95,6 +95,8 @@ namespace warpgate.cli
 					listener.Listen ();
 
 					Console.WriteLine ("listening to relay {0}", relay);
+					Console.WriteLine ("Use the following UID to send files over here:");
+					Console.WriteLine (uid);
 
 					Console.WriteLine ("press ENTER to quit");
 					Console.ReadLine ();
