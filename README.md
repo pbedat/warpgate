@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/pbedat/warpgate.svg?branch=master)](https://travis-ci.org/pbedat/warpgate)
+
 warpgate
 ========
 A simple file http file transmission toolkit.
