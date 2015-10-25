@@ -6,20 +6,7 @@ namespace warpgate
 {
 	public class RelayService: WebSocketBehavior, IRelay
 	{
-		protected override void OnOpen ()
-		{
-			base.OnOpen ();
-		}
-
-		protected override void OnMessage (WebSocketSharp.MessageEventArgs e)
-		{
-			base.OnMessage (e);
-		}
-
-		protected override void OnClose (WebSocketSharp.CloseEventArgs e)
-		{
-			base.OnClose (e);
-		}
+		
 
 		#region IRelay implementation
 		public void Send (string path, Stream stream)
