@@ -6,12 +6,12 @@ A simple file http file transmission toolkit.
 
 Why warpgate?
 -------------
-I often have to work with windows machine in foreign networks without the privileges to open other ports than 80 or 443.
+I often have to work with windows machine in foreign networks without the privileges to install software or open ports.
 Deploying software to hazardous environments like this is a huge pain in the ass.
 
 So?
 ---
-I want to create a toolkit capable of easing my deployment woes.
+I was bored and wanted to create a funny toolkit capable of easing my deployment woes. 
 
 Features
 ========
