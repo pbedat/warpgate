@@ -5,25 +5,23 @@ using System.IO;
 
 namespace warpgate
 {
-	public class Listener: IDisposable
+	public class RelayListener: IDisposable
 	{
-		string uid;
-
 		WebSocket socket;
 
 		string state = "IDLE";
 		string path = "";
 		Stream stream = null;
 
-		public Listener (string uid)
+		public RelayListener (string uid)
 		{
-			this.uid = uid;
 			socket = new WebSocket ("ws://localhost:8081/{0}".Fmt (uid));
 
 			socket.OnMessage += OnMessage;
 		}
 
-		private void OnMessage(object sender, MessageEventArgs e){
+		private void OnMessage(object sender, MessageEventArgs e)
+		{
 			if(e.Data == "TRANSMISSION")
 			{
 				state = "TRANSMISSION";

@@ -6,7 +6,7 @@
     <ProjectGuid>{F547DED9-A4D1-4990-AC64-17B309E32305}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>warpgate</RootNamespace>
-    <AssemblyName>warpgate</AssemblyName>
+    <AssemblyName>warpgate.lib</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -43,24 +43,33 @@
     <Reference Include="websocket-sharp-with-proxy-support">
       <HintPath>..\packages\websocket-sharp-with-proxy-support.1.9.1\lib\net35-client\websocket-sharp-with-proxy-support.dll</HintPath>
     </Reference>
+    <Reference Include="Nancy.Hosting.Self">
+      <HintPath>..\packages\Nancy.Hosting.Self.1.3.0\lib\net40\Nancy.Hosting.Self.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="Hosting\WarpgateBootstrapper.cs" />
-    <Compile Include="Hosting\UploadModule.cs" />
-    <Compile Include="Client\FileTransmission.cs" />
     <Compile Include="Client\SendFile.cs" />
-    <Compile Include="Hosting\RelayService.cs" />
-    <Compile Include="Client\Listener.cs" />
-    <Compile Include="Hosting\RegistrarModule.cs" />
-    <Compile Include="Hosting\RelayServer.cs" />
+    <Compile Include="Client\RelayListener.cs" />
+    <Compile Include="Client\Dto\FileTransmission.cs" />
+    <Compile Include="Server\WarpgateBootstrapper.cs" />
+    <Compile Include="Server\Relaying\RegistrarModule.cs" />
+    <Compile Include="Server\Relaying\RelayServer.cs" />
+    <Compile Include="Server\Relaying\RelayService.cs" />
+    <Compile Include="Server\Receiving\UploadModule.cs" />
+    <Compile Include="Api\HostSettings.cs" />
+    <Compile Include="Api\WarpgateApi.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Hosting\" />
     <Folder Include="Client\" />
+    <Folder Include="Client\Dto\" />
+    <Folder Include="Server\" />
+    <Folder Include="Server\Relaying\" />
+    <Folder Include="Server\Receiving\" />
+    <Folder Include="Api\" />
   </ItemGroup>
 </Project>

@@ -6,7 +6,7 @@
     <ProjectGuid>{6878E96A-7231-4E16-A7F7-5ABB3B775761}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <RootNamespace>warpgate.cli</RootNamespace>
-    <AssemblyName>warpgate.cli</AssemblyName>
+    <AssemblyName>warpgate</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
@@ -45,6 +45,9 @@
     <Reference Include="Ninject">
       <HintPath>..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
     </Reference>
+    <Reference Include="FluentCommandLineParser">
+      <HintPath>..\packages\FluentCommandLineParser.1.4.3\lib\net35\FluentCommandLineParser.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Program.cs" />
@@ -55,9 +58,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\warpgate\warpgate.csproj">
+    <ProjectReference Include="..\warpgate\warpgate.lib.csproj">
       <Project>{F547DED9-A4D1-4990-AC64-17B309E32305}</Project>
-      <Name>warpgate</Name>
+      <Name>warpgate.lib</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>

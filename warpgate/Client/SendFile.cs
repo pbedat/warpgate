@@ -12,20 +12,19 @@ namespace warpgate
 		{
 			var attr = File.GetAttributes(transmission.Path);
 
-			//detect whether its a directory or file
-			if (attr.HasFlag (FileAttributes.Directory)) 
-			{
-				foreach (var path in Directory.GetFiles(transmission.Path, "*.*", SearchOption.AllDirectories)) 
-				{
-					attr = File.GetAttributes (path);
+			return attr.HasFlag (FileAttributes.Directory)
+				? SendDirectory (transmission)
+				: new []{Send (transmission)};
+		}
 
-					if(!attr.HasFlag(FileAttributes.Directory))
-						yield return Send (new FileTransmission{ BaseUrl = transmission.BaseUrl, Path = path }, transmission.Path);
-				}
-			} 
-			else
+		private IEnumerable<string> SendDirectory(FileTransmission transmission)
+		{
+			foreach (var path in Directory.GetFiles(transmission.Path, "*.*", SearchOption.AllDirectories)) 
 			{
-				yield return Send (transmission);		
+				var attr = File.GetAttributes (path);
+
+				if(!attr.HasFlag(FileAttributes.Directory))
+					yield return Send (new FileTransmission{ BaseUrl = transmission.BaseUrl, Path = path }, transmission.Path);
 			}
 		}
 

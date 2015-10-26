@@ -1,9 +1,11 @@
-﻿using System;
+﻿using Fclp;
+using System;
 using System.Linq;
 using Nancy.Hosting.Self;
 using NServiceKit.Text;
 using Ninject;
 using System.Net.Http;
+using System.Collections.Generic;
 
 namespace warpgate.cli
 {
@@ -11,61 +13,37 @@ namespace warpgate.cli
 	{
 		public static void Main (string[] args)
 		{
-			args = args.Any () 
-				? args
-				: new []{ "host" };
+			var commands = new Dictionary<string, Action<string[]>> {
+				{ "receive", Receive },
+				{ "cp", Copy },
+				{ "link", Link },
+				{ "relay", Relay }
+			};
 
-			switch (args [0]) {
-			case "host":
-				Host (args.Skip (1).ToArray ());
-				return;
-			case "cp":
-				Copy (args.Skip (1).ToArray ());
-				return;
-			case "link":
-				Link (args.Skip (1).ToArray ());
-				return;
-			case "relay":
-				Relay (args.Skip (1).ToArray ());
+			if (!args.Any () || !commands.Keys.Contains(args.First())) {
+				Console.WriteLine ("available commands: ");
+				commands.Keys.ToList ().ForEach (Console.WriteLine);
 				return;
 			}
+
+			commands [args.First ()](args.Skip(1).ToArray());
 		}
 
-		static void Host (string[] args)
+		static void Receive (string[] args)
 		{
-			var portArgs = args.SkipWhile (arg => arg != "--port" || arg != "-p");
+			var settings = ParseHostSettings (args);
 
-			var ports = portArgs.Any ()
-				? portArgs.Skip (1)
-				: portArgs;
+			if (settings == null)
+				return;
 
-			var port = int.Parse(ports.FirstOrDefault () ?? "8080");
+			var api = new WarpgateApi ();
 
-			var kernel = new StandardKernel ();
+			Console.WriteLine ("launching warpgate on http://localhost:{0}", settings.Port);
 
-			using (var host = new NancyHost (new Uri ("http://localhost:{0}".Fmt (port)), new WarpgateBootstrapper (kernel))) 
-			{
-				Console.WriteLine ("launching warpgate on http://localhost:{0}", port);
-				host.Start ();
+			api.Receive (settings);
 
-				using(var relayServer = new RelayServer ())
-				{
-					var uid = relayServer.Register ();
-					relayServer.Start ();
-					kernel.Bind<IRelayServer> ().ToConstant (relayServer);
-
-					using (var listener = new Listener (uid)) 
-					{
-						listener.Listen ();
-
-
-						Console.WriteLine ("press ENTER to quit");
-						Console.ReadLine ();
-					}
-				}
-
-			}
-
+			Console.WriteLine ("press ENTER to quit");
+			Console.ReadLine ();
 		}
 
 		static void Copy (string[] args)
@@ -75,64 +53,56 @@ namespace warpgate.cli
 
 			var transmission = new FileTransmission{ BaseUrl = host, Path = path };
 
-			new SendFile ().Process (transmission).ToArray().PrintDump();
+			new WarpgateApi ().Send (transmission).ToArray ().PrintDump ();
 		}
 
 		static void Link (string[] args)
 		{
 			var relay = args [0];
 
-			using (var httpClient = new HttpClient ()) {
-			
-				var registerPost = httpClient.PostAsync (relay + "/warpgates", new StringContent(string.Empty));
-				registerPost.Wait ();
+			var uid = new WarpgateApi ().Link (relay);
 
-				var read = registerPost.Result.Content.ReadAsStringAsync ();
-				read.Wait ();
-				var uid = read.Result;
+			Console.WriteLine ("listening to relay {0}", relay);
+			Console.WriteLine ("Use the following UID to send files over here:");
+			Console.WriteLine (uid);
 
-				using (var listener = new Listener (uid)) {
-					listener.Listen ();
-
-					Console.WriteLine ("listening to relay {0}", relay);
-					Console.WriteLine ("Use the following UID to send files over here:");
-					Console.WriteLine (uid);
-
-					Console.WriteLine ("press ENTER to quit");
-					Console.ReadLine ();
-				}
-			}
+			Console.WriteLine ("press ENTER to quit");
+			Console.ReadLine ();
 		}
 
 		static void Relay (string[] args)
 		{
-			var portArgs = args.SkipWhile (arg => arg != "--port" || arg != "-p");
+			var settings = ParseHostSettings (args);
 
-			var ports = portArgs.Any ()
-				? portArgs.Skip (1)
-				: portArgs;
+			if (settings == null)
+				return;
 
-			var kernel = new StandardKernel ();
+			var api = new WarpgateApi ();
 
-			var port = int.Parse(ports.FirstOrDefault () ?? "8080");
+			Console.WriteLine ("launching warpgate relay on http://localhost:{0}", settings.Port);
 
-			using (var host = new NancyHost (new Uri ("http://localhost:{0}".Fmt (port)), new WarpgateBootstrapper (kernel))) 
-			{
-				Console.WriteLine ("launching warpgate on http://localhost:{0}", port);
-				host.Start ();
+			api.Relay (settings);
 
-				using(var relayServer = new RelayServer ())
-				{
-					Console.WriteLine ("launching relay");
-					relayServer.Start ();
-					kernel.Bind<IRelayServer> ().ToConstant (relayServer);
+			Console.WriteLine ("press ENTER to quit");
+			Console.ReadLine ();
+		}
 
-					Console.WriteLine ("press ENTER to quit");
-					Console.ReadLine ();
-				}
+		static HostSettings ParseHostSettings(string[] args)
+		{
+			var parser = new FluentCommandLineParser<HostSettings> ();
 
+			parser.Setup (hs => hs.Port)
+				.As ('p', "port")
+				.SetDefault (8080);
+
+			var result = parser.Parse (args);
+
+			if (result.HasErrors) {
+				Console.WriteLine (result.ErrorText);
+				return null;
 			}
 
+			return parser.Object;
 		}
 	}
 }

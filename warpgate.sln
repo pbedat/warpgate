@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "warpgate", "warpgate\warpgate.csproj", "{F547DED9-A4D1-4990-AC64-17B309E32305}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "warpgate.lib", "warpgate\warpgate.lib.csproj", "{F547DED9-A4D1-4990-AC64-17B309E32305}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "warpgate.cli", "warpgate.cli\warpgate.cli.csproj", "{6878E96A-7231-4E16-A7F7-5ABB3B775761}"
 EndProject
