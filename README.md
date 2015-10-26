@@ -22,7 +22,7 @@ Before you begin to warp file from one place to another, you have to host.
 
     ./warpgate.exe receive [--port | -p ]
   
-Files sent by the warpgate will be saved to the current working dir.
+Files received by the warpgate will be saved to the current working dir.
   
 Copy
 ----
