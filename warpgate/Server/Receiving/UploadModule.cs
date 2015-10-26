@@ -16,7 +16,7 @@ namespace warpgate
 
 				kernel.Get<IRelayServer>().Relay(relativePath, Request.Body);
 
-				return "OK";
+				return relativePath;
 			};
 
 			Put ["{uid}/warpgate/io/{path*}"] = _ => {
@@ -27,7 +27,7 @@ namespace warpgate
 
 				kernel.Get<IRelayServer>().Relay(uid, relativePath, Request.Body);
 
-				return "OK";
+				return relativePath;
 			};
 		}
 	}
