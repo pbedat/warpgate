@@ -26,7 +26,7 @@ Files received by the warpgate will be saved to the current working dir.
   
 Copy
 ----
-So you have launched a warpgate? Ok! It's time pewpewpew:
+So you have launched a warpgate? Ok! It's time to pewpewpew:
 
     ./warpgate.exe cp <url> <path>
   
